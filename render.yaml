@@ -38,6 +38,7 @@ services:
     name: runwaycash-redis
     plan: free
     maxmemoryPolicy: noeviction
+    ipAllowList: []
 
 # 3. Managed PostgreSQL Database
 databases:
