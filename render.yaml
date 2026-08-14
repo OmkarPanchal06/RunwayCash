@@ -33,15 +33,15 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
 
+  # 4. Managed Redis Instance (for Caching & BullMQ)
+  - type: redis
+    name: runwaycash-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+
 # 3. Managed PostgreSQL Database
 databases:
   - name: runwaycash-db
     databaseName: runwaycash
     user: runwaycash_user
     plan: free
-
-# 4. Managed Redis Instance (for Caching & BullMQ)
-  - type: redis
-    name: runwaycash-redis
-    plan: free
-    maxmemoryPolicy: noeviction
