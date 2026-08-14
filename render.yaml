@@ -29,6 +29,14 @@ services:
 
 
 
+  # 5. The Mobile App (Exported as a Web App PWA)
+  - type: web
+    name: runwaycash-web
+    env: static
+    plan: free
+    buildCommand: npm install && cd apps/mobile && npx expo export
+    staticPublishPath: apps/mobile/dist
+
 # 3. Managed PostgreSQL Database
 databases:
   - name: runwaycash-db
