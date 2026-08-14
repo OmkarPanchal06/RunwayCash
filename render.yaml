@@ -14,15 +14,9 @@ services:
           name: runwaycash-db
           property: connectionString
       - key: REDIS_HOST
-        fromService:
-          type: redis
-          name: runwaycash-redis
-          property: host
+        value: red-d9h72hn41pts73ee4kg0
       - key: REDIS_PORT
-        fromService:
-          type: redis
-          name: runwaycash-redis
-          property: port
+        value: 6379
 
   # 2. The Python Expense DNA Service
   - type: web
@@ -33,12 +27,7 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
 
-  # 4. Managed Redis Instance (for Caching & BullMQ)
-  - type: redis
-    name: runwaycash-redis
-    plan: free
-    maxmemoryPolicy: noeviction
-    ipAllowList: []
+
 
 # 3. Managed PostgreSQL Database
 databases:
