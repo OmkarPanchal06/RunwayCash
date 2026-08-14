@@ -1,0 +1,28 @@
+{
+  "name": "@runwaycash/api",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "migrate": "ts-node src/migrate.ts"
+  },
+  "dependencies": {
+    "@runwaycash/shared": "*",
+    "bullmq": "^4.10.0",
+    "fastify": "^4.20.0",
+    "ioredis": "^5.3.0",
+    "pg": "^8.11.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.0.0",
+    "@types/pg": "^8.21.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.12",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}

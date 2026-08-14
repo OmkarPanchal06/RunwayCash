@@ -1,0 +1,17 @@
+{
+  "name": "runway-cash-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @runwaycash/api",
+    "dev:mobile": "npm run start -w @runwaycash/mobile",
+    "dev:python": "cd services/expense-dna && .\\venv\\Scripts\\uvicorn main:app --reload --port 8000",
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:python\"",
+    "lint": "npm run lint --workspaces",
+    "test": "npm run test --workspaces"
+  }
+}

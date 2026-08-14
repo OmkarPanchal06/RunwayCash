@@ -1,0 +1,47 @@
+services:
+  # 1. The Node.js Core API
+  - type: web
+    name: runwaycash-api
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build -w @runwaycash/api
+    startCommand: npm run start -w @runwaycash/api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: runwaycash-db
+          property: connectionString
+      - key: REDIS_HOST
+        fromService:
+          type: redis
+          name: runwaycash-redis
+          property: host
+      - key: REDIS_PORT
+        fromService:
+          type: redis
+          name: runwaycash-redis
+          property: port
+
+  # 2. The Python Expense DNA Service
+  - type: web
+    name: runwaycash-dna
+    env: python
+    plan: free
+    rootDir: services/expense-dna
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+
+# 3. Managed PostgreSQL Database
+databases:
+  - name: runwaycash-db
+    databaseName: runwaycash
+    user: runwaycash_user
+    plan: free
+
+# 4. Managed Redis Instance (for Caching & BullMQ)
+  - type: redis
+    name: runwaycash-redis
+    plan: free
+    maxmemoryPolicy: noeviction
